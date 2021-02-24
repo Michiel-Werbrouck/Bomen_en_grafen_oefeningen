@@ -58,7 +58,7 @@ public class Recursie {
         else if (s.length() == 1)
             return 0;
         else{
-            return (s.substring(0,2).equalsIgnoreCase().equals("hi")? 1: 0) + countHi(s.substring(1));
+            return (s.substring(0,2).equalsIgnoreCase("hi")? 1: 0) + countHi(s.substring(1));
         }
     }
 

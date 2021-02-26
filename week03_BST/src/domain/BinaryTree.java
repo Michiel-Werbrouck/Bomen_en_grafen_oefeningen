@@ -23,6 +23,11 @@ public class BinaryTree<E>{
 			if (this.rightTree != null) this.rightTree.printPreorder();
 	}
 
+	public void printInorder(){
+		if (this.leftTree != null) this.leftTree.printInorder();
+		System.out.print(this.data + " ");
+		if (this.rightTree != null) this.rightTree.printInorder();
+	}
 
 	//*ONDERSTAANDE METHODES NIET IMPLEMENTEREN! DEZE MOETEN GEIMPLEMENTEERD WORDEN IN DE BinarySearchTree file!*//
 	boolean lookup(E data) {

@@ -34,54 +34,43 @@ public class Graph {
         return this.verbindingsMatrix.length;
     }
 
-    private boolean rechtstreekseVerbinding(int van, int tot) {
-        //System.out.println("verbinding van "+van+" tot "+tot+"?");
-        return this.getVerbindingsMatrix()[van - 1][tot - 1];
-    }
-
-    private int[] findAncestors(int start, int destination) {// nummering van
-        int aantalKnopen = this.getAantalKnopen();
-        int[] ancestors = new int[aantalKnopen];
+    private int[] findAncestors(int start, int destination) {
+        // nummering van
+        // start-knoop
+        // (1..aantal_knopen)
+        // naar
+        // eindKnoop
+        // (destination)
+        int[] ancestors = new int[this.getAantalKnopen()];
         initArray(ancestors, infty);
+
         Queue<Integer> queue = new LinkedList<>();
+        // https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Queue.html
         queue.add(start);
         ancestors[start - 1] = 0;
-        int huidig = queue.remove();
-        while (huidig != destination) {
-            //System.out.println("huidig = "+huidig);
-            //zoek alle nog niet bezochte knooppunten vanuit huidig
-            for (int i = 1; i <= aantalKnopen; i++) {
-                if (rechtstreekseVerbinding(huidig, i) && (ancestors[i - 1] == infty)) {
-                    //System.out.println("ja");
-                    //voeg knoop i toe aan queue
-                    queue.add(i);
-                    //duid aan dat huidig de ouder is van i in ancestormatrix
-                    ancestors[i - 1] = huidig;
+
+        // oefening 1.4
+        while(!queue.isEmpty()){
+            int lastRemoved = queue.remove();
+            for(int i = 0; i < getAantalKnopen(); i++){
+                if(verbindingsMatrix[lastRemoved-1][i] != 0 && ancestors[i] == infty ){
+                    ancestors[i] = lastRemoved;
+                    queue.add(i+1);
                 }
             }
-
-            //voorste element van queue wordt nieuwe huidige knoop
-            if (!queue.isEmpty()) {
-                huidig = queue.remove(); //of .poll() wat geen exception gooit
-            } else {
-                //queue is leeg, stop maar
-                break;
-            }
         }
+
         return ancestors;
     }
 
-    public boolean[][] getVerbindingsMatrix() {
-        //return verbindingsMatrix;
-        return null;
-    }
-
     public List<Integer> findPath(int start, int destination) {
-        if (start <= 0 || start > this.getAantalKnopen() || destination <= 0 ||
-                destination > this.getAantalKnopen())
+        if (start <= 0 || start > this.getAantalKnopen() || destination <= 0 || destination > this.getAantalKnopen())
             throw new IllegalArgumentException();
+
         int[] ancestors = this.findAncestors(start, destination);
         List<Integer> path = new LinkedList<>();
+
+        // oefening 1.5
         int ouder = ancestors[destination - 1];
         while (ouder != 0 && ouder != infty) {
             path.add(0, destination);;
@@ -98,7 +87,6 @@ public class Graph {
         for (int i = 0; i < array.length; i++)
             array[i] = value;
     }
-
 
     // methode om tussenliggend resultaat te kunnen schrijven naar het scherm
     public String geefAncestors(int start, int destination) {

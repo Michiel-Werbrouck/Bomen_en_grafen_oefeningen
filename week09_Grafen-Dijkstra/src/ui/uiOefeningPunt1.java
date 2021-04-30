@@ -11,8 +11,6 @@ public class uiOefeningPunt1 {
 		Graph g = new Graph(m);
 		
 		System.out.println(g.berekenPaden(3));
-		
-		
 	}
 
 }

@@ -14,10 +14,10 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> {
 		if (data == null) {
 			return false;
 		}
-		if (this.data.compareTo(data) == 0) {
+		if (data.compareTo(this.data) == 0) {
 			return true;
 		} else {
-			if (this.data.compareTo(data) > 0) {
+			if (data.compareTo(this.data) < 0) {
 				return (this.leftTree != null && this.leftTree.lookup(data));
 			} else {
 				return (this.rightTree != null && this.rightTree.lookup(data));
@@ -48,30 +48,69 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> {
 		}
 	}
 
-	public boolean removeNode(E data){
-		throw new UnsupportedOperationException("Not yet implemented");
+	public boolean removeNode(E data) {
+		if (this.data == null || data == null || !lookup(data)) return false;
+
+		if (data.compareTo(this.data) == 0) {
+			if (this.isLeaf()) {
+				this.data = null;
+				return true;
+			}
+
+			if (this.rightTree != null) {
+				this.data = this.rightTree.data;
+				this.rightTree.data = null;
+				return true;
+			}
+
+			return false;
+		}
+
+		if (data.compareTo(this.data) < 0) {
+			this.leftTree.removeNode(data);
+		} else {
+			this.rightTree.removeNode(data);
+		}
+
+		return false;
 	}
 
 	public E searchSmallest(){
-		if (this.leftTree == null) {
+		//ONELINER
+		return (this.leftTree == null ? this.data : this.leftTree.searchSmallest());
+
+		//NIEUWE
+		/*if (this.leftTree == null) {
 			return this.data;
-		}
-		else if (this.leftTree.data.compareTo(this.data) < 0) {
+		} else {
+			return this.leftTree.searchSmallest();
+		}*/
+
+		//OUDE METHODE
+		/*else if (this.leftTree.data.compareTo(this.data) < 0) {
 			return this.leftTree.searchSmallest();
 		} else {
 			return this.data;
-		}
+		}*/
 	}
 
 	public E searchGreatest(){
-		if (this.rightTree == null) {
+		//ONELINER
+		return (this.rightTree == null ? this.data : this.rightTree.searchGreatest());
+
+		//NIEUWE
+		/*if (this.rightTree == null) {
 			return this.data;
-		}
-		else if (this.rightTree.data.compareTo(this.data) > 0) {
+		} else {
+			return this.rightTree.searchGreatest();
+		}*/
+
+		//OUDE METHODE
+		/*else if (this.rightTree.data.compareTo(this.data) > 0) {
 			return this.rightTree.searchGreatest();
 		} else {
 			return this.data;
-		}
+		}*/
 	}
 }
 

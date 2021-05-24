@@ -31,6 +31,10 @@ public class BinaryTree<E>{
 		if (this.rightTree != null) this.rightTree.printInorder();
 	}
 
+	public boolean isLeaf() {
+		return (this.leftTree == null && this.rightTree == null);
+	}
+
 	public int count(E geg) {
 		if (geg == null) {
 			return 0;

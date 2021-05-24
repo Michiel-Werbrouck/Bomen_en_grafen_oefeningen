@@ -12,10 +12,11 @@ public class BinarySearchTreeDriver {
 		boom.addNode(5);
 		boom.addNode(7);
 		boom.addNode(9);
+		boom.removeNode(6);
 
-		System.out.println(boom.searchSmallest());
+		//System.out.println(boom.searchSmallest());
 		//System.out.println(boom.lookup(11111));
-		//printBoomInfo(boom);
+		printBoomInfo(boom);
 	}
 
 	private static void printBoomInfo(BinarySearchTree<Integer> boom) {

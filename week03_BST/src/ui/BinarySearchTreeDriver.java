@@ -12,7 +12,8 @@ public class BinarySearchTreeDriver {
 		boom.addNode(5);
 		boom.addNode(7);
 		boom.addNode(9);
-		boom.removeNode(8);
+		boom.removeNode(4);
+		boom.removeNode(3);
 
 		//System.out.println(boom.searchSmallest());
 		//System.out.println(boom.lookup(11111));

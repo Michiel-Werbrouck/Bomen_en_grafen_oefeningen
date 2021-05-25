@@ -78,7 +78,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> {
 	public E searchSmallest(){
 		//ONELINER
 		return (this.leftTree == null ? this.data : this.leftTree.searchSmallest());
-
+		//
 		//NIEUWE
 		/*if (this.leftTree == null) {
 			return this.data;

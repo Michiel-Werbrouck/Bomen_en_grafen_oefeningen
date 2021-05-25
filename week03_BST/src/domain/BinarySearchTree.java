@@ -55,25 +55,53 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> {
 			if (this.isLeaf()) {
 				this.data = null;
 				return true;
+			} else if (this.leftTree != null) {
+				E leftDat = this.leftTree.searchGreatest();
+				this.data = leftDat;
+				boolean deleted = this.leftTree.removeNode(leftDat);
+				if (deleted) {
+					this.leftTree.cleanUp();
+				}
+				return deleted;
+			} else {
+				E rightDat = this.rightTree.searchGreatest();
+				this.data = rightDat;
+				boolean deleted = this.rightTree.removeNode(rightDat);
+				if (deleted) {
+					this.rightTree.cleanUp();
+				}
+				return deleted;
 			}
-
-			if (this.rightTree != null) {
-				this.data = this.rightTree.data;
-				this.rightTree.data = null;
-				return true;
-			}
-
-			return false;
 		}
 
 		if (data.compareTo(this.data) < 0) {
-			this.leftTree.removeNode(data);
+			if (this.leftTree != null) return this.leftTree.removeNode(data);
 		} else {
-			this.rightTree.removeNode(data);
+			if (this.rightTree != null) return this.rightTree.removeNode(data);
 		}
 
 		return false;
 	}
+
+	public void cleanUp() {
+		if (this.data != null) {
+			if (this.leftTree != null) {
+				if (this.leftTree.data == null) {
+					this.leftTree = null;
+				} else {
+					this.leftTree.cleanUp();
+				}
+			}
+			if (this.rightTree != null) {
+				if (this.rightTree.data == null) {
+					this.rightTree = null;
+				} else {
+					this.rightTree.cleanUp();
+				}
+			}
+		}
+	}
+
 
 	public E searchSmallest(){
 		//ONELINER

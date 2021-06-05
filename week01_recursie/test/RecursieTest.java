@@ -217,7 +217,7 @@ public class RecursieTest {
 		assertTrue(res.contains("abc"));
 	}
 	
-	@Test
+	/*@Test
 	public void testOef11_aantalKaarten_1_verdiepingen_Geeft_2() {
 		assertEquals(2, Recursie.aantalKaarten(1));
 	}
@@ -250,7 +250,7 @@ public class RecursieTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testOef11_aantalKaarten_negatief_gooit_exception() {
 		Recursie.aantalKaarten(-10);
-	}
+	}*/
 	
 	
 }

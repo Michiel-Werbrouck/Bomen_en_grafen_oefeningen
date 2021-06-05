@@ -18,18 +18,6 @@ public class BinaryTree<E>{
 		this.leftTree= leftTree;
 		this.rightTree= rightTree;
 	}
-	
-	public void printInorder(){
-			if (this.leftTree != null) this.leftTree.printInorder();
-			System.out.print(this.data + " ");
-			if (this.rightTree != null) this.rightTree.printInorder();
-	}
-
-	public void printInorder(){
-		if (this.leftTree != null) this.leftTree.printInorder();
-		System.out.print(this.data + " ");
-		if (this.rightTree != null) this.rightTree.printInorder();
-	}
 
 	public boolean isLeaf() {
 		return (this.leftTree == null && this.rightTree == null);

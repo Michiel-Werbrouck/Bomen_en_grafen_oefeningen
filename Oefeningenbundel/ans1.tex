@@ -418,11 +418,11 @@ public boolean addNode(E data) {
 		return false; //geen twee keer zelfde data in BST
 	} else if (this.data.compareTo(data) > 0) {//ga naar linkersubboom
 		if (this.leftTree == null) {
-			this.leftTree = new BinaryTree<>(data);
+			this.leftTree = new BinarySearchTree<>(data);
 			return true;
 		} else return (this.leftTree.addNode(data));
 	} else if (this.rightTree == null) {
-		this.rightTree = new BinaryTree<>(data);
+		this.rightTree = new BinarySearchTree<>(data);
 		return true;
 	} else return (this.rightTree.addNode(data));
 }
@@ -1608,7 +1608,7 @@ child { node {340}
 \end{tikzpicture}
 \caption{Min-heap van vliegtuigen}
 \end{figure}
-\item \verb/[840,1225,996]/
+\item \verb/[780, 840, 996, 1225]/
 \end{itemize}
 \end{Oplossing}
 \begin{Oplossing}{6.6}
@@ -1677,7 +1677,7 @@ child { node {10}
 \begin{Oplossing}{7.1}
 $1\rightarrow2\rightarrow5\rightarrow8$ of $1\rightarrow4\rightarrow7\rightarrow8$
 \end{Oplossing}
-\begin{Oplossing}{7.3}
+\begin{Oplossing}{7.2}
 \begin{enumerate}
 \item Een verbindingsmatrix is correct indien
 \begin{itemize}
@@ -1688,7 +1688,7 @@ $1\rightarrow2\rightarrow5\rightarrow8$ of $1\rightarrow4\rightarrow7\rightarrow
 \item De waarden van de verbindingsmatrix kunnen slechts gelijk zijn aan $0$ en $1$. Het vraagt minder geheugenruimte en het werkt efficiënter als de elementen als een boolean voorgesteld worden.
 \end{enumerate}
 \end{Oplossing}
-\begin{Oplossing}{7.4}
+\begin{Oplossing}{7.3}
 \begin{lstlisting}[caption={findAncestors(int,int)}, label=BFSAncestors]
 private boolean rechtstreekseVerbinding(int van, int tot) {
 	//System.out.println("verbinding van "+van+" tot "+tot+"?");
@@ -1741,7 +1741,7 @@ private void initArray(int[] array, int value) {
 }
 \end{lstlisting}
 \end{Oplossing}
-\begin{Oplossing}{7.5}
+\begin{Oplossing}{7.4}
 \begin{lstlisting}[caption={findPath}, label=BFSfindPath]
 public List<Integer> findPath(int start, int destination) {
 	if (start <= 0 || start > this.getAantalKnopen() || destination <= 0 ||
@@ -1788,15 +1788,8 @@ P=\begin{bmatrix}
 Enkele paden: $2\rightarrow1\rightarrow3\rightarrow5\rightarrow6$ met lengte 8; $5 \rightarrow 1 \rightarrow 3 \rightarrow  2\rightarrow 4$ met lengte 3
 \end{Oplossing}
 \begin{Oplossing}{8.2}
-\begin{enumerate}
-\item Bij het algoritme van Floyd berekenen we  paden met minste gewicht. We hebben daarom de gewichtenmatrix nodig. De elementen van die gewichtenmatrix zijn niet meer binair ($0$ of $1$), maar kunnen alle positieve waarden aannemen.
-\item Een gewichtenmatrix is geldig als er elementen in zitten en als hij vierkant is.
-\end{enumerate}
-
-\end{Oplossing}
-\begin{Oplossing}{8.3}
-\begin{lstlisting}[caption={findDistances}, label=FloydfindDistances]
-public int[][] findDistances() {
+\begin{lstlisting}[caption={getPointerMatrix}, label=FloydgetPointerMatrix]
+public int[][] getPointerMatrix() {
 	int aantal = this.gewichtenMatrix.length;
 	int[][] P = new int[aantal][aantal];
 	//double[][] D = this.gewichtenMatrix.clone(); fout = shallow clone
@@ -1818,12 +1811,11 @@ public int[][] findDistances() {
 			}
 		}
 	}
-
 	return P;
 }
 \end{lstlisting}
 \end{Oplossing}
-\begin{Oplossing}{8.4}
+\begin{Oplossing}{8.3}
 \begin{lstlisting}[caption={getShortestPath}, label=FloydgetShortestPath]
 public List<Integer> getShortestPath(int van, int tot, int[][] P) {
 	List<Integer> pad = new ArrayList<>();
@@ -1845,7 +1837,7 @@ public List<Integer> getShortestPath(int van, int tot, int[][] P) {
 }
 \end{lstlisting}
 \end{Oplossing}
-\begin{Oplossing}{8.5}
+\begin{Oplossing}{8.4}
 \begin{lstlisting}[caption={berekenLengte}, label=FloydberekenLengte]
 public int berekenLengte(List<Integer> pad) {
 	int som = 0;

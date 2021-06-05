@@ -4,8 +4,6 @@
 
 \section*{Inleiding}
 
-Download het bestand \verb=week03_BST_opgave.zip= van Toledo en importeer dit bestand in IntelliJ zoals aangegeven in de oefeningen van vorige week. 
-
 \begin{oef}
 \papier Gegeven twee binaire bomen in figuren~\ref{fig:BSToef1} en \ref{fig:oefBST2}. Ga voor elk van beide na of het een binaire zoekboom is (BST).
 \begin{figure}[htbp]
@@ -130,7 +128,7 @@ child { node {9}
 
 \begin{oefenumerate}
 \item Teken op papier eerst de binaire zoekboom zoals die door de \verb+main+ methode in de klasse \verb+BinarySearchTreeDriver+ zal worden toegevoegd.
-\item Implementeer de \verb=addNode= methode in de \verb=BinaryTree= klasse.  Maak optimaal gebruik van het feit dat de boom een binaire zoekboom is.
+\item Implementeer de \verb=addNode= methode in de \verb=BinarySearchTree= klasse.  Maak optimaal gebruik van het feit dat de boom een binaire zoekboom is.
 \item Om je implementatie te controleren, run je de BinarySearchTreeDriver klasse uit de \verb+ui+ package. Verwachte uitvoer: 3 4 5 6 7 8 9  
 \end{oefenumerate}
 \begin{opl}
@@ -162,11 +160,11 @@ public boolean addNode(E data) {
 		return false; //geen twee keer zelfde data in BST
 	} else if (this.data.compareTo(data) > 0) {//ga naar linkersubboom
 		if (this.leftTree == null) {
-			this.leftTree = new BinaryTree<>(data);
+			this.leftTree = new BinarySearchTree<>(data);
 			return true;
 		} else return (this.leftTree.addNode(data));
 	} else if (this.rightTree == null) {
-		this.rightTree = new BinaryTree<>(data);
+		this.rightTree = new BinarySearchTree<>(data);
 		return true;
 	} else return (this.rightTree.addNode(data));
 }

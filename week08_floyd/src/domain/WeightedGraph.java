@@ -21,57 +21,26 @@ public class WeightedGraph {
         return gewichtenMatrix.length;
     }
 
-    public int[][] findDistances() {
-        int aantal = this.gewichtenMatrix.length;
-        int[][] P = new int[aantal][aantal];
-        //double[][] D = this.gewichtenMatrix.clone(); fout = shallow clone
-        //http://stackoverflow.com/questions/9106131/how-to-clone-a-multidimensional-array-in-java
-        //of manuele versie in de nieuwe opgave op toledo
-        //argument voor deze clone: is gezien in OOP
-        double[][] D = this.gewichtenMatrix.clone();
-        for (int i = 0; i < D.length; i++) {
-            D[i] = D[i].clone();
-        }
-        for (int k = 0; k < aantal; k++) {
-            for (int i = 0; i < aantal; i++) {
-                for (int j = 0; j < aantal; j++) {
-                    if (D[i][k] + D[k][j] < D[i][j]) {
-                        D[i][j] = D[i][k] + D[k][j];
-                        P[i][j] = k + 1;
-                    }
-                }
-            }
-        }
-        return P;
-    }
+    public int[][] getPointerMatrix() {
+        int[][] pointerMatrix = new int[getAantalKnopen()][getAantalKnopen()];
+        double[][] DMatrix = this.gewichtenMatrix.clone();
 
-	public List<Integer> getShortestPath(int van, int tot, int[][] P) {
-        List<Integer> pad = new ArrayList<>();
-        if (van == tot) {
-            return pad;
-        } else {
-            int via = P[van - 1][tot - 1];
-            if (via == 0){
-                pad.add(van);
-                pad.add(tot);
-            } else {
-                pad = getShortestPath(van, via, P);
-                pad.remove(pad.size() - 1); //anders dubbel
-                pad.addAll(getShortestPath(via, tot, P));
-            }
-        }
-        return pad;
+
+		return pointerMatrix;
+	}
+
+	public List<Integer> getShortestPath(int i, int j, int[][] pointer) {
+		List<Integer> res = new ArrayList<>();
+
+
+		return res;
+
 	}
 
 	public int berekenLengte(List<Integer> pad) {
-        int som = 0;
-        int aantalKnopen = pad.size();
-        int huidigeKnoop, volgendeKnoop;
-        for (int i = 0; i < aantalKnopen - 1; i++) {
-            huidigeKnoop = pad.get(i);
-            volgendeKnoop = pad.get(i + 1);
-            som += this.gewichtenMatrix[huidigeKnoop - 1][volgendeKnoop - 1];
-        }
-        return som;
+		int som = 0;
+	
+		return som;
 	}
+
 }

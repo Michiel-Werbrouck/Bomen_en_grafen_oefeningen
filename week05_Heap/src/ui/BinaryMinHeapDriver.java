@@ -16,7 +16,8 @@ public class BinaryMinHeapDriver {
 		heap.addValue(2);
 		heap.addValue(-7);
 		heap.print();
-		System.out.println();
+		System.out.println(heap.getPath(3));
+		/*System.out.println();
 		System.out.println("Kleinste waarde = " + heap.getMin());
 		System.out.println();
 		
@@ -25,9 +26,9 @@ public class BinaryMinHeapDriver {
 			heap.print();
 		}
 		
-		System.out.println(heap.getPath(3));
+
 		System.out.println(heap.getPath(2));
-		System.out.println(heap.getPath(5));
+		System.out.println(heap.getPath(5));*/
 	}
 
 }

@@ -26,5 +26,4 @@ public class BinaryTreeDriver {
         System.out.println(root.getNodesAtDistance(0));
         System.out.println(root.getNodesAtDistance(4));
     }
-
 }

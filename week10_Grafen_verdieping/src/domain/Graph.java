@@ -85,24 +85,41 @@ public class Graph {
         }
     }
 
-    public boolean isBrug(int van,int naar){
+    public boolean isBrug(int van, int naar) {
+        if(!zijnVerbonden(van,naar)) return false;
+        int[][] res = this.verbindingsMatrix;
+        int count = 0;
         if (zijnVerbonden(van, naar)) {
-            if (connections(van) >= 2 && connections(naar) <= 2 || connections(van) <= 2 && connections(naar) >= 2) {
-                return true;
+            for (int i = 0; i < res.length; i++) {
+                if ((verbindingsMatrix[van - 1][i] == 1 && verbindingsMatrix[naar - 1][i] == 1) ){
+                    return false;
+                }
+
+            }
+            for(int j = 0; j < res.length; j++){
+                if(verbindingsMatrix[van-1][j] == 1 && j != naar-1){
+                    for(int k = 0; k<res.length; k++){
+                        if(verbindingsMatrix[naar-1][k] == 1 && k != van-1){
+                            if(verbindingsMatrix[j][k] != 0){
+                                return false;
+                            }
+                        }
+                    }
+                }
             }
         }
-
-        return false;
+        return true;
     }
 
-    public int connections(int knoop) {
-        int connections = 0;
-
-        for (int i = 0; i < this.verbindingsMatrix.length; i++) {
-            if (this.verbindingsMatrix[knoop-1][i] == 1) connections++;
+    public int aantalBruggen() {
+        int[][] res = this.verbindingsMatrix;
+        int count = 0;
+        for (int i = 1; i < res.length; i++) {
+            for (int j = i + 1; j <= res.length; j++) {
+                if (isBrug(i, j)) count++;
+            }
         }
-
-        return connections;
+        return count;
     }
 
     private boolean zijnVerbonden(int knoop1, int knoop2) {

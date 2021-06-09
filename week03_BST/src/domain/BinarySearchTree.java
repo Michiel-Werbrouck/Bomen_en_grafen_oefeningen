@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.ArrayList;
+
 public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> {
 
 	public BinarySearchTree(E data, BinarySearchTree<E> leftTree, BinarySearchTree<E> rightTree) {
@@ -49,38 +51,46 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> {
 	}
 
 	public boolean removeNode(E data) {
-		if (this.data == null || data == null || !lookup(data)) return false;
-
-		if (data.compareTo(this.data) == 0) {
+		if (data == null) {
+			throw new IllegalArgumentException("data is leeg");
+		}
+		if (this.data == null) {
+			return false;
+		}
+		if (this.data.compareTo(data) == 0) {//data gevonden
 			if (this.isLeaf()) {
 				this.data = null;
 				return true;
-			} else if (this.leftTree != null) {
-				E leftDat = this.leftTree.searchGreatest();
-				this.data = leftDat;
-				boolean deleted = this.leftTree.removeNode(leftDat);
-				if (deleted) {
-					this.leftTree.cleanUp();
-				}
-				return deleted;
+				// in dit geval blijft een leeg blaadje achter
+				// clean kan dan enkel via gehele boom
 			} else {
-				E rightDat = this.rightTree.searchGreatest();
-				this.data = rightDat;
-				boolean deleted = this.rightTree.removeNode(rightDat);
-				if (deleted) {
-					this.rightTree.cleanUp();
+				if (this.leftTree != null) {//linkerboom is niet leeg
+					E grootsteLinks = this.leftTree.searchGreatest();
+					this.data = grootsteLinks;
+					boolean verwijderenGelukt = this.leftTree.removeNode(grootsteLinks);
+					if (verwijderenGelukt) {
+						this.leftTree.cleanUp();
+					}
+					return verwijderenGelukt;
+				} else {//rechterboom is niet leeg
+					E kleinsteRechts = this.rightTree.searchGreatest();
+					this.data = kleinsteRechts;
+					boolean verwijderenGelukt = this.rightTree.removeNode(kleinsteRechts);
+					if (verwijderenGelukt) {
+						this.rightTree.cleanUp();
+					}
+					return verwijderenGelukt;
 				}
-				return deleted;
 			}
 		}
 
-		if (data.compareTo(this.data) < 0) {
-			if (this.leftTree != null) return this.leftTree.removeNode(data);
-		} else {
-			if (this.rightTree != null) return this.rightTree.removeNode(data);
+		else {
+			if (this.data.compareTo(data) > 0) {//zoek in linkerboom
+				return (this.leftTree == null ? false : this.leftTree.removeNode(data));
+			} else {//zoek in rechterboom
+				return (this.rightTree == null ? false : this.rightTree.removeNode(data));
+			}
 		}
-
-		return false;
 	}
 
 	public void cleanUp() {
@@ -102,43 +112,31 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> {
 		}
 	}
 
+	public ArrayList<E> getPath(E data) {
+		if (!lookup(data)) {//data komt niet voor in BST
+			return null;
+		}
+		ArrayList<E> pad = new ArrayList<>();
+		if (this.data.compareTo(data) == 0){
+			pad.add(data);
+			return pad;
+		} else {
+			pad.add(this.data);
+			if (this.data.compareTo(data) > 0) {//ga links, data komt zeker voor!
+				pad.addAll(this.leftTree.getPath(data));
+			} else {// ga rechts, data zit daar gegarandeerd
+				pad.addAll((this.rightTree.getPath(data)));
+			}
+		}
+		return pad;
+	}
 
 	public E searchSmallest(){
-		//ONELINER
 		return (this.leftTree == null ? this.data : this.leftTree.searchSmallest());
-		//
-		//NIEUWE
-		/*if (this.leftTree == null) {
-			return this.data;
-		} else {
-			return this.leftTree.searchSmallest();
-		}*/
-
-		//OUDE METHODE
-		/*else if (this.leftTree.data.compareTo(this.data) < 0) {
-			return this.leftTree.searchSmallest();
-		} else {
-			return this.data;
-		}*/
 	}
 
 	public E searchGreatest(){
-		//ONELINER
 		return (this.rightTree == null ? this.data : this.rightTree.searchGreatest());
-
-		//NIEUWE
-		/*if (this.rightTree == null) {
-			return this.data;
-		} else {
-			return this.rightTree.searchGreatest();
-		}*/
-
-		//OUDE METHODE
-		/*else if (this.rightTree.data.compareTo(this.data) > 0) {
-			return this.rightTree.searchGreatest();
-		} else {
-			return this.data;
-		}*/
 	}
 }
 

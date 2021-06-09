@@ -24,10 +24,7 @@ public class WeightedGraph {
     public int[][] getPointerMatrix() {
         int aantal = this.gewichtenMatrix.length;
         int[][] P = new int[aantal][aantal];
-        //double[][] D = this.gewichtenMatrix.clone(); fout = shallow clone
-        //http://stackoverflow.com/questions/9106131/how-to-clone-a-multidimensional-array-in-java
-        //of manuele versie in de nieuwe opgave op toledo
-        //argument voor deze clone: is gezien in OOP
+
         double[][] D = this.gewichtenMatrix.clone();
         for (int i = 0; i < D.length; i++) {
             D[i] = D[i].clone();

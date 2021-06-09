@@ -19,8 +19,64 @@ public class BinaryTree<E>{
 		this.rightTree= rightTree;
 	}
 
+	public void printPreorder(){
+		System.out.print(this.data + " ");
+		if (this.leftTree != null) this.leftTree.printPreorder();
+		if (this.rightTree != null) this.rightTree.printPreorder();
+	}
+
+	public void printPostorder(){
+		if (this.leftTree != null) this.leftTree.printPostorder();
+		if (this.rightTree != null) this.rightTree.printPostorder();
+		System.out.print(this.data + " ");
+	}
+
+	public void printInorder() {
+		if (this.leftTree != null) this.leftTree.printInorder();
+		System.out.print(this.data + " ");
+		if (this.rightTree != null) this.rightTree.printInorder();
+	}
+
 	public boolean isLeaf() {
 		return (this.leftTree == null && this.rightTree == null);
+	}
+
+	public int getDepth() {
+		return 1 + Math.max((this.leftTree == null ? 0 : this.leftTree.getDepth()),
+				(this.rightTree == null ? 0 : this.rightTree.getDepth()));
+	}
+
+	public boolean allNodesHaveTwoChildren(){
+		if(this.isLeaf()) return true;
+		if(this.rightTree == null || this.leftTree == null) return false;
+		return this.leftTree.allNodesHaveTwoChildren() && this.rightTree.allNodesHaveTwoChildren();
+	}
+
+	public boolean onlyLeavesOnDepth(int k){
+		if (k < 1 || k > this.getDepth()) {
+			throw new IllegalArgumentException("Foute waarde voor diepte!");
+		}
+		ArrayList<BinaryTree> data = new ArrayList<>();
+		ArrayList<BinaryTree> newData = new ArrayList<>();
+		data.add(this);
+		for(int i = 1; i<k; i++){
+			for( BinaryTree node : data){
+				if(node.leftTree != null){
+					newData.add(node.leftTree);
+				}
+				if(node.rightTree != null){
+					newData.add(node.rightTree);
+				}
+			}
+			data = (ArrayList<BinaryTree>) newData.clone();
+			newData.clear();
+		}
+		for(BinaryTree node : data){
+			if(!node.isLeaf()){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public int count(E geg) {
@@ -69,6 +125,10 @@ public class BinaryTree<E>{
 	}
 
 	E searchGreatest(){
+		throw new UnsupportedOperationException("Should not be implemented, implement in BinarySearchTree file");
+	}
+
+	ArrayList<E> getPath(E data) {
 		throw new UnsupportedOperationException("Should not be implemented, implement in BinarySearchTree file");
 	}
 

@@ -6,8 +6,8 @@ public class Graph {
     private final int[][] verbindingsMatrix;
 
     public Graph(int[][] matrix) {
-        if (!isGeldigeVerbindingsMatrix(matrix))
-            throw new IllegalArgumentException("No valid verbindingsmatrix");
+        /*if (!isGeldigeVerbindingsMatrix(matrix))
+            throw new IllegalArgumentException("No valid verbindingsmatrix");*/
 
         this.verbindingsMatrix = matrix.clone();
     }
@@ -43,7 +43,6 @@ public class Graph {
     private int getAantalKnopen() {
         return verbindingsMatrix.length;
     }
-
 
     public ArrayList<Double> verdeel(int i, double bedrag) {
         ArrayList<Double> verdeelt = new ArrayList<>();
@@ -86,4 +85,27 @@ public class Graph {
         }
     }
 
+    public boolean isBrug(int van,int naar){
+        if (zijnVerbonden(van, naar)) {
+            if (connections(van) >= 2 && connections(naar) <= 2 || connections(van) <= 2 && connections(naar) >= 2) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public int connections(int knoop) {
+        int connections = 0;
+
+        for (int i = 0; i < this.verbindingsMatrix.length; i++) {
+            if (this.verbindingsMatrix[knoop-1][i] == 1) connections++;
+        }
+
+        return connections;
+    }
+
+    private boolean zijnVerbonden(int knoop1, int knoop2) {
+        return this.verbindingsMatrix[knoop1-1][knoop2-1] == 1;
+    }
 }

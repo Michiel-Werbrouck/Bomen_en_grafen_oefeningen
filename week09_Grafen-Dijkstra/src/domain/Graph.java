@@ -18,7 +18,6 @@ public class Graph {
         return gewichtenMatrix.length;
     }
 
-
 	private int[][] initMatrixDijkstra(int vanKnoop) {
 		int[][] res = new int[this.gewichtenMatrix.length + 1][this.gewichtenMatrix.length];
 		// laatste rij is rij met kortste lengtes vanuit vanKnoop
@@ -68,7 +67,7 @@ public class Graph {
 			if (knopenpaar[0] != inf && knopenpaar[1] != inf) {
 				// nieuwe minimum
 				res[getAantalKnopen()][knopenpaar[1]] = min;
-				for (int j = 0; j < getAantalKnopen() - 1; j++) {
+				for (int j = 0; j <= getAantalKnopen() - 1; j++) {
 					// kolom op nul zetten, maar niet op de plaats die het minimum aanlevert
 					if (j != knopenpaar[0])
 						res[j][knopenpaar[1]] = 0;

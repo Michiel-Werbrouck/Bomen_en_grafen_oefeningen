@@ -7,7 +7,7 @@ public class UiDijkstra {
 	public static void main(String[] args) {
 		// voorbeeld uit de cursus met extra knoop 9. In deze knoop komt geen
 		// enkele verbinding aan.
-		int[][] gewichtenMatrix = {
+		/*int[][] gewichtenMatrix = {
 				{ 0, 5, 9, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE,
 						Integer.MAX_VALUE, Integer.MAX_VALUE },
 				{ 5, 0, 3, 8, 10, 11, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE },
@@ -21,7 +21,16 @@ public class UiDijkstra {
 				{ Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 8, 10, 12, 0,
 						Integer.MAX_VALUE },
 				{ 1, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE,
-						Integer.MAX_VALUE, Integer.MAX_VALUE, 0 } };
+						Integer.MAX_VALUE, Integer.MAX_VALUE, 0 } };*/
+		int[][] gewichtenMatrix = {
+				{ 0,8, 3, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE },
+				{ 8, 0, 4, 7, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE},
+				{ Integer.MAX_VALUE, 4, 0, 6, 10, Integer.MAX_VALUE, Integer.MAX_VALUE },
+				{ Integer.MAX_VALUE, 7, Integer.MAX_VALUE, 0, Integer.MAX_VALUE, 9, Integer.MAX_VALUE },
+				{ 4, Integer.MAX_VALUE, 10, Integer.MAX_VALUE, 0, 6,3 },
+				{ Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 9, 6, 0, Integer.MAX_VALUE},
+				{ Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, 3, 11, 0},
+		};
 		Graph g = new Graph(gewichtenMatrix);
 		System.out.println(g.berekenPaden(1));
 	}
